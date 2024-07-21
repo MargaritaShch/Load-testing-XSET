@@ -12,9 +12,10 @@ public class RequestStatistics {
     private Map<String, Double> rpsValues;
     private Map<String, Double> pacingIntervals;
     private Map<String, Double> rpmValues;
+    private int totalThreads; // Переменная для общего количества потоков
 
     // Конструктор инициализации статистики запросов
-    public RequestStatistics(String[] relevantMethods) {
+    public RequestStatistics(String[] relevantMethods, int totalThreads) {
         this.totalCalls = 0;
         this.methodCounts = new HashMap<>();
         this.relevantMethods = relevantMethods;
@@ -23,6 +24,7 @@ public class RequestStatistics {
         this.rpsValues = new HashMap<>();
         this.pacingIntervals = new HashMap<>();
         this.rpmValues = new HashMap<>();
+        this.totalThreads = totalThreads; // Инициализируем общее количество потоков
     }
 
     public void addRequest(String methodPath, String hour) {
@@ -150,6 +152,13 @@ public class RequestStatistics {
             if (rpm > 0) {
                 System.out.printf("%s: %.2f samplers per minute\n", method, rpm);
             }
+        }
+
+        System.out.println("\nJMeter Thread Group Configuration:");
+        for (String method : relevantMethods) {
+            double rps = rpsValues.getOrDefault(method, 0.0);
+            int threads = (int) Math.ceil((rps * totalThreads) / 100);
+            System.out.printf("%s: %d threads\n", method, threads);
         }
     }
 }

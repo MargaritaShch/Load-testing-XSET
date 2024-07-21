@@ -10,10 +10,12 @@ import java.util.Date;
 public class Parser {
     private RequestStatistics stats;
     private SimpleDateFormat dateFormat;
+    private int totalThreads; // Переменная для общего количества потоков
 
-    public Parser(String[] relevantMethods) {
-        this.stats = new RequestStatistics(relevantMethods);
+    public Parser(String[] relevantMethods, int totalThreads) {
+        this.stats = new RequestStatistics(relevantMethods, totalThreads);
         this.dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        this.totalThreads = totalThreads; // Инициализируем общее количество потоков
     }
 
     public void parseLogFile(String filePath) {
