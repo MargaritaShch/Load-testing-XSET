@@ -1,11 +1,11 @@
 package parser;
 
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.FileReader;// Класс для чтения данных из файла
+import java.io.BufferedReader;// Класс для построчного чтения данных из файла
+import java.io.IOException;// Исключение для обработки ошибок ввода-вывода
+import java.text.ParseException;// Исключение для обработки ошибок при парсинге да
+import java.text.SimpleDateFormat;// Класс для форматирования и парсинга дат
+import java.util.Date;// Класс для работы с датами
 
 public class Parser {
     private RequestStatistics stats;
